@@ -1,0 +1,10 @@
+
+\.idea/
+
+\.vs/
+
+EfProject/bin/
+
+EfProject/obj/
+
+packages/
