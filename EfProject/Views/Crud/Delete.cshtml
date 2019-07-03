@@ -1,3 +1,4 @@
+@using EfProject.Resources
 @model EfProject.Models.Cliente
 
 @{
@@ -5,6 +6,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>¿Esta seguro que desea eliminar el cliente?</h2>
+<h2>@ViewBag.Title</h2>
 
-
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.nombre)
+    @Html.HiddenFor(model => model.fechaAlta)
+    @Html.HiddenFor(model => model.edad)
+    <div class="row">
+        <div class="col-md-6 text-right" style="font-weight: bold;">@Strings.CustomerName:</div>
+        <div class="col-md-6">@Model.nombre</div>
+        <div class="col-md-6 text-right" style="font-weight: bold;">@Strings.CustomerAge</div>
+        <div class="col-md-6">@Model.edad</div>
+        <div class="col-md-6 text-right" style="font-weight: bold;">@Strings.CustomerDateUp</div>
+        <div class="col-md-6">@Model.fechaAlta</div>
+        <div class="col-md-6 text-right">
+            <button class="btn btn-danger">@Strings.DeleteTitle</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-default">@Strings.CancelTitle</button>
+        </div>
+    </div>
+}

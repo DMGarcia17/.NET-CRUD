@@ -132,7 +132,7 @@
   <data name="CustomerDateUp" xml:space="preserve">
     <value>Fecha de alta</value>
   </data>
-  <data name="Something" xml:space="preserve">
-    <value>Algo</value>
+  <data name="CancelTitle" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
 </root>
