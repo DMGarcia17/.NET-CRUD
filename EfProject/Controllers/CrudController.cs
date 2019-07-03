@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using EfProject.Models;
@@ -68,9 +69,23 @@ namespace EfProject.Controllers
         }
         
         [HttpPost]
-        public ActionResult Editar(int id)
+        public ActionResult Edit(Cliente cli)
         {
-            var cliente =db.Clientes.FirstOrDefault(c => c.ID == id);
+            if (!ModelState.IsValid) return View(cli);
+            Clientes cliente = db.Clientes.Find(cli.ID);
+            if (cliente != null)
+            {
+                cliente.nombre = cli.nombre;
+                cliente.edad = cli.edad;
+                cliente.fechaAlta = cli.fechaAlta;
+                if (TryUpdateModel(cliente))
+                {
+                    db.Entry(cliente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            
             return RedirectToAction("Edit", cliente);
         }
     }

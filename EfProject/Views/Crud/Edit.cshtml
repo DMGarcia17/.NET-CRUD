@@ -6,3 +6,47 @@
 }
 
 <h2>Editar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Clientes</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.HiddenFor(model=>model.ID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.nombre, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.nombre, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fechaAlta, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fechaAlta, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.fechaAlta, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.edad, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.edad, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.edad, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-success" type="submit">Create</button>
+            </div>
+        </div>
+        
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+}
