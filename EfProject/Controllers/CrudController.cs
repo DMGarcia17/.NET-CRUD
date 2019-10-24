@@ -9,8 +9,8 @@ namespace EfProject.Controllers
 {
     public class CrudController : Controller
     {
-        
         static EF_TESTEntities db = new EF_TESTEntities();
+
         // GET
         public ActionResult Index()
         {
@@ -20,6 +20,7 @@ namespace EfProject.Controllers
             {
                 clientes.Add(Cliente.GetClienteObj(item));
             }
+
             return View(clientes);
         }
 
@@ -46,28 +47,36 @@ namespace EfProject.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+
             return View(cli);
         }
 
         public ActionResult Delete(int id)
         {
-            var cliente =db.Clientes.FirstOrDefault(c => c.ID == id);
+            var cliente = db.Clientes.FirstOrDefault(c => c.ID == id);
+            if (cliente == null)
+            {
+                return new HttpNotFoundResult(":'C");
+            }
+
             return View(Cliente.GetClienteObj(cliente));
         }
-        
+
         [HttpPost]
         public ActionResult Del(int id)
         {
-            var cliente =db.Clientes.FirstOrDefault(c => c.ID == id);
-            return RedirectToAction("Index");
+            var cliente = db.Clientes.FirstOrDefault(c => c.ID == id);
+            db.Clientes.Remove(cliente);
+            db.SaveChanges();
+            return Json(new {success=true,message="The row was deleted"});
         }
-        
+
         public ActionResult Edit(int id)
         {
-            var cliente =db.Clientes.FirstOrDefault(c => c.ID == id);
+            var cliente = db.Clientes.FirstOrDefault(c => c.ID == id);
             return View(Cliente.GetClienteObj(cliente));
         }
-        
+
         [HttpPost]
         public ActionResult Edit(Cliente cli)
         {
@@ -85,7 +94,7 @@ namespace EfProject.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            
+
             return RedirectToAction("Edit", cliente);
         }
     }
